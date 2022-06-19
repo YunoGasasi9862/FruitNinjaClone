@@ -5,12 +5,14 @@ using UnityEngine;
 public class Blade : MonoBehaviour
 {
     bool isCutting=false;
-   public Rigidbody2D rb;
+ 
     Camera cam;
+    Collider2D col;
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+       
         cam = Camera.main;
+        col = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -28,6 +30,10 @@ public class Blade : MonoBehaviour
         if(isCutting)
         {
             Vector3 position = cam.ScreenToWorldPoint(Input.mousePosition);
+            transform.position= position;
+
+
+
 
         }
     }
@@ -35,10 +41,13 @@ public class Blade : MonoBehaviour
     void StartCutting()
     {
         isCutting = true;
+        col.enabled = true;
+
     }
 
     void StopCutting()
     {
         isCutting = false;
+        col.enabled = false;
     }
 }
