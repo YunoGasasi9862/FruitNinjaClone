@@ -8,6 +8,8 @@ public class Blade : MonoBehaviour
  
     Camera cam;
     Collider2D col;
+    Vector3 prevPosition;
+   public float minVelocity = 0.02f;
     void Start()
     {
        
@@ -31,10 +33,18 @@ public class Blade : MonoBehaviour
         {
             Vector3 position = cam.ScreenToWorldPoint(Input.mousePosition);
             transform.position= position;
+            float velocity = (position - prevPosition).magnitude / Time.deltaTime;
 
+            if(velocity > minVelocity)
+            {
+                col.enabled = true;
+            }
+            else
+            {
+                col.enabled = false;
+            }
 
-
-
+            prevPosition = position;
         }
     }
 
@@ -42,7 +52,7 @@ public class Blade : MonoBehaviour
     {
         isCutting = true;
         col.enabled = true;
-
+        prevPosition = cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     void StopCutting()
