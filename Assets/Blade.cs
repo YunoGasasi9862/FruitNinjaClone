@@ -10,11 +10,15 @@ public class Blade : MonoBehaviour
     Collider2D col;
     Vector3 prevPosition;
    public float minVelocity = 0.02f;
+    public GameObject BladeTrail;
+    GameObject CurrentTrail;
     void Start()
     {
        
         cam = Camera.main;
         col = GetComponent<Collider2D>();
+        prevPosition = cam.ScreenToWorldPoint(Input.mousePosition); //this is for the first one: prevposition
+
     }
 
     // Update is called once per frame
@@ -52,12 +56,16 @@ public class Blade : MonoBehaviour
     {
         isCutting = true;
         col.enabled = true;
-        prevPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+
+       CurrentTrail = Instantiate(BladeTrail, transform);
+       
     }
 
     void StopCutting()
     {
         isCutting = false;
         col.enabled = false;
+        CurrentTrail.transform.SetParent(null); //remove
+        Destroy(CurrentTrail, 2f);
     }
 }
