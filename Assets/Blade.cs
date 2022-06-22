@@ -65,7 +65,7 @@ public class Blade : MonoBehaviour
     {
         isCutting = false;
         col.enabled = false;
-        CurrentTrail.transform.SetParent(null); //remove
+        CurrentTrail.transform.SetParent(null);
         Destroy(CurrentTrail, 2f);
     }
 }
